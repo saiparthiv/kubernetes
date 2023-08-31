@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: regcred
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: c2FpcGFydGhpdjk1OmRja3JfcGF0X3p4ZjU1ZjdTeVgxZFU0YkJBNTVpc244NHVRQQ==
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-private-pod
+spec:
+  containers:
+    - name: vprofileweb
+      image: saiparthiv95/vprofileweb:latest
+  imagePullSecrets:
+    - name: regcred
+

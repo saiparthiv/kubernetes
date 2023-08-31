@@ -1,0 +1,35 @@
+# pod-and-replicaset.yaml
+
+# Define the Pod template
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sample-pod
+spec:
+  containers:
+    - name: app-container
+      image: imranvisualpath/freshtomapp:V7
+      ports:
+        - containerPort: 8080
+
+# Define the ReplicaSet
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: sample-replicaset
+spec:
+  replicas: 3  # Number of desired replicas
+  selector:
+    matchLabels:
+      app: sample-pod  # Label selector to match Pods managed by this ReplicaSet
+  template:
+    metadata:
+      labels:
+        app: sample-pod  # Label to match with the selector
+    spec:
+      containers:
+        - name: app-container
+          image: imranvisualpath/freshtomapp:V7
+          ports:
+            - containerPort: 8080
+
